@@ -19,13 +19,8 @@ public class PiDigits {
      * @return An array containing the hexadecimal digits.
      */
     public static byte[] getDigits(int start, int count) {
-        if (start < 0) {
-            throw new RuntimeException("Invalid Interval");
-        }
-
-        if (count < 0) {
-            throw new RuntimeException("Invalid Interval");
-        }
+        if (start < 0) { throw new RuntimeException("Invalid Interval"); }
+        if (count < 0) { throw new RuntimeException("Invalid Interval"); }
 
         byte[] digits = new byte[count];
         double sum = 0;
@@ -45,6 +40,45 @@ public class PiDigits {
         }
 
         return digits;
+    }
+
+    public static byte[] getDigits(int start, int count, int N) throws InterruptedException {
+        if (start < 0) { throw new RuntimeException("Invalid Interval"); }
+        if (count < 0) { throw new RuntimeException("Invalid Interval"); }
+
+        PiThread[] threads = new PiThread[N];
+        int each = count / N;
+        int left = count % N;
+        int chunkStart = start;
+
+        for (int i = 0; i < N; i++) {
+            int chunkCount;
+            if (i < left) {
+                chunkCount = each + 1;
+                threads[i] = new PiThread(chunkStart, chunkCount);
+            }
+            else {
+                chunkCount = each;
+                threads[i] = new PiThread(chunkStart, chunkCount);
+            }
+
+            threads[i].start();
+            chunkStart += chunkCount;
+        }
+
+        for (int i = 0; i < N; i++) {
+            threads[i].join();
+        }
+
+        byte [] bytes = new byte[count];
+        int offset = 0;
+        for (int i = 0; i < N; i++) {
+            byte [] portion = threads[i].getBytes();
+            System.arraycopy(portion, 0, bytes, offset, portion.length);
+            offset += portion.length;
+        }
+
+        return bytes;
     }
 
     /// <summary>
