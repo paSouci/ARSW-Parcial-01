@@ -3,6 +3,7 @@
 ### Arquitecturas de Software - ARSW
 ## Ejercicio Fórmula BBP - Parcial Practico
 
+- Juan Diego Patino Munoz
 
 **Ejercicio Fórmula BBP**
 
