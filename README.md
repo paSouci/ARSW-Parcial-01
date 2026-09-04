@@ -32,4 +32,10 @@ lo que se pide con los hilos
 
 ---
 
-6. Ajuste la implementación para que cada 5 segundos los hilos se detengan e impriman el número de digitos que han procesado y una vez se presione la tecla enter que los hilos continúen su proceso.
+3. Ajuste la implementación para que cada 5 segundos los hilos se detengan e impriman el número de digitos que han procesado y una vez se presione la tecla enter que los hilos continúen su proceso.
+
+Funciona bien para los primeros cinco segundos pero luego solo espera 1 entre
+llamados :( la verdad no se porque si todo esta configurado para que espere 5000ms aka 5s
+
+
+
